@@ -24,6 +24,7 @@ public class AddToCartServlet extends HttpServlet {
         if (productId != null && !productId.trim().isEmpty()) {
             cart.put(productId, cart.getOrDefault(productId, 0) + 1); // Add or increment quantity
             session.setAttribute("cart", cart); // Save the cart back to the session
+            System.out.println("Cart: " + cart);
         }
 
         // Redirect back to the product list (index.jsp) or to the cart page

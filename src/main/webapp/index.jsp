@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<form action="cart.jsp" method="get">
+    <input type="submit" value="View Cart">
+</form>
 
 <h1>Welcome to Our Simple Store</h1>
 
@@ -19,7 +22,7 @@
     %>
     <li>
         <strong><%= product.getName() %></strong> - $<%= String.format("%.2f", product.getPrice()) %>
-        <form action="AddToCartServlet" method="post">
+        <form action="${pageContext.request.contextPath}/add-to-cart" method="post">
             <input type="hidden" name="productId" value="<%= product.getId() %>" />
             <input type="submit" value="Add to Cart" />
         </form>

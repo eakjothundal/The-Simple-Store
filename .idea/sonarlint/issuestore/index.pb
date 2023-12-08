@@ -22,3 +22,5 @@ o
 ?src/main/java/com/shoppingcart/servlets/ProductListServlet.java,2/e/2ea22f2be6bd6917f2df4baa1b738dca0bda05f0
 m
 =src/main/java/com/shoppingcart/servlets/AddToCartServlet.java,e/4/e45728c98c9c108237f81657dce27d9d867007a3
+H
+src/main/webapp/cart.jsp,1/5/15cc1f56cfb105c0c58f868f0a6e914318f5957b

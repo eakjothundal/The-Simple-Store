@@ -19,4 +19,11 @@ public class ProductDataStore {
     public static List<Product> getProducts() {
         return products;
     }
+
+    public static Product getProduct(String productId) {
+        return products.stream()
+                .filter(p -> p.getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+    }
 }
