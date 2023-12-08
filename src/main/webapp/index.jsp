@@ -2,6 +2,7 @@
 <%@ page import="com.shoppingcart.model.Product" %>
 <%@ page import="com.shoppingcart.data.ProductDataStore" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,8 +16,15 @@
 <body>
 
 <header>
-    <h1>Welcome to Our Simple Store</h1>
+    <h1>Welcome to The Simple Store</h1>
+    <%
+        @SuppressWarnings("unchecked")
+        Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
+        if (cart != null && !cart.isEmpty()) { %>
     <a href="cart.jsp" class="cart-button">View Cart</a>
+    <% } else { %>
+    <div></div>
+    <% } %>
 </header>
 
 <main class="container">
