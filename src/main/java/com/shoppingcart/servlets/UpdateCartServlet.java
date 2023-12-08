@@ -21,7 +21,7 @@ public class UpdateCartServlet extends HttpServlet {
         if (cart != null && productId != null && !productId.trim().isEmpty()) {
             try {
                 int quantity = Integer.parseInt(quantityString);
-                if (quantity > 1) {
+                if (quantity > 0) {
                     cart.put(productId, quantity);
                 } else {
                     cart.remove(productId);
