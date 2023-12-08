@@ -12,7 +12,7 @@ public class Product {
         this.price = price;
     }
 
-    // getters and setters...
+    // getters and setters
     public String getId() {
         return id;
     }

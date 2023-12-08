@@ -1,0 +1,62 @@
+/* Receipt Page Styles */
+
+/* General styles that should be applied to the entire body or specific common elements */
+body {
+    background-color: #f4f4f4; /* Similar to what might be in styles.css for consistent page backgrounds */
+    font-family: Arial, sans-serif; /* Presuming styles.css defines a default font-family */
+}
+
+h1 {
+    text-align: center; /* Center the main title */
+    color: #333; /* A neutral color like the cart page */
+    margin-top: 2rem; /* Space from top */
+    margin-bottom: 1rem; /* Space before the receipt details */
+}
+
+/* Receipt Details */
+.receipt-details {
+    width: 60%; /* Width of the receipt area */
+    margin: 0 auto; /* Center the receipt on the page */
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Rounded corners like cart items */
+    text-align: left; /* Align the details to the left */
+}
+
+.receipt-details p {
+    font-size: 1rem;
+    line-height: 1.5; /* Keep lines readable */
+    margin-bottom: 10px; /* Space between lines */
+}
+
+.receipt-details p strong {
+    margin-right: 5px; /* Space after the label */
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Finish Link */
+.finish-link {
+    display: inline-block; /* Changed to inline-block */
+    padding: 10px 20px;
+    background-color: #2ecc71;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    cursor: pointer; /* Ensure it looks clickable */
+}
+
+.finish-link:hover {
+    background-color: #27ae60;
+    text-decoration: none;
+}

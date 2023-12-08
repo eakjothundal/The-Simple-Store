@@ -32,3 +32,11 @@ l
 <src/main/java/com/shoppingcart/servlets/CheckoutServlet.java,6/5/65304660b1167e7a7330243e8ec0454bcd72b086
 K
 src/main/webapp/receipt.jsp,0/4/04a1ff102ade154c16fcecc42b368a76d4ee22dc
+P
+ src/main/webapp/styles/index.css,b/5/b5030c86931a7d4b325085ad84f9440fac9caf57
+Q
+!src/main/webapp/styles/styles.css,9/3/9361a37b0c39f9c5f73f8a6d00d4e6d3ce9bdb6f
+O
+src/main/webapp/styles/cart.css,9/0/902b9609d25921747b6bfcab54c6beb58c5d4cd6
+R
+"src/main/webapp/styles/receipt.css,4/e/4e3779e3a92a857bb0fc5ec3d5c2c9447d1fd689
