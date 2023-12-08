@@ -55,6 +55,9 @@ public class CheckoutServlet extends HttpServlet {
         request.setAttribute("shippingCost", SHIPPING_COST);
         request.setAttribute("total", total);
 
+        cart.clear();
+        session.setAttribute("cart", cart);
+
         // Forward to the JSP page that will show the receipt
         RequestDispatcher dispatcher = request.getRequestDispatcher("receipt.jsp");
         dispatcher.forward(request, response);
