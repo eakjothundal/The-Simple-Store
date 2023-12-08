@@ -2,16 +2,21 @@ package com.shoppingcart.data;
 
 import com.shoppingcart.model.Product;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDataStore {
-    public static List<Product> getDummyProducts() {
-        return Arrays.asList(
-                new Product("1", "Keyboard", 29.99),
-                new Product("2", "Mouse", 19.99),
-                new Product("3", "Monitor", 199.99)
-                // Add more products as needed
-        );
+    private static final List<Product> products = new ArrayList<>();
+
+    static {
+        // Dummy list of products
+        products.add(new Product("P001", "Keyboard", 49.99));
+        products.add(new Product("P002", "Mouse", 19.99));
+        products.add(new Product("P003", "Monitor", 159.99));
+        // Add more products if needed
+    }
+
+    public static List<Product> getProducts() {
+        return products;
     }
 }

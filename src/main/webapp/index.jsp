@@ -1,13 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.shoppingcart.model.Product" %>
+<%@ page import="com.shoppingcart.data.ProductDataStore" %>
+<%@ page import="java.util.List" %>
+
 <html>
 <head>
-    <title>Product List</title>
+    <title>Our Simple Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Product List</h1>
+
+<h1>Welcome to Our Simple Store</h1>
+
 <ul id="product-list">
-    <!-- Dynamically generated product list will be inserted here -->
+    <%
+        List<Product> products = ProductDataStore.getProducts();
+        for(Product product : products) {
+    %>
+    <li>
+        <strong><%= product.getName() %></strong> - $<%= String.format("%.2f", product.getPrice()) %>
+        <form action="AddToCartServlet" method="post">
+            <input type="hidden" name="productId" value="<%= product.getId() %>" />
+            <input type="submit" value="Add to Cart" />
+        </form>
+    </li>
+    <% } %>
 </ul>
+
 </body>
 </html>
