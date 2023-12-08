@@ -24,3 +24,7 @@ m
 =src/main/java/com/shoppingcart/servlets/AddToCartServlet.java,e/4/e45728c98c9c108237f81657dce27d9d867007a3
 H
 src/main/webapp/cart.jsp,1/5/15cc1f56cfb105c0c58f868f0a6e914318f5957b
+n
+>src/main/java/com/shoppingcart/servlets/UpdateCartServlet.java,4/d/4dc67f3efd8c50b0a21b67029245595c7477445d
+r
+Bsrc/main/java/com/shoppingcart/servlets/RemoveFromCartServlet.java,c/9/c96c18b70ba9f75aca5b92ceeb02af230f7cf944

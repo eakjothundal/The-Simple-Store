@@ -29,6 +29,16 @@
         if (product != null) {
 %>
 <p><strong><%= product.getName() %>:</strong> <%= quantity %> x $<%= String.format("%.2f", product.getPrice()) %></p>
+<form action="<%= request.getContextPath() %>/update-cart" method="post">
+    <input type="hidden" name="productId" value="<%= productId %>" />
+    <label for="quantity_<%= productId %>">Quantity:</label>
+    <input type="number" id="quantity_<%= productId %>" name="quantity" value="<%= quantity %>" min="1" />
+    <input type="submit" value="Update" />
+</form>
+<form action="<%= request.getContextPath() %>/remove-from-cart" method="post" style="display:inline;">
+    <input type="hidden" name="productId" value="<%= productId %>" />
+    <input type="submit" value="Remove" />
+</form>
 <%
         }
     }
