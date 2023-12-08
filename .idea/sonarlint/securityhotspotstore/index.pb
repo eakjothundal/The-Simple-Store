@@ -30,3 +30,5 @@ r
 Bsrc/main/java/com/shoppingcart/servlets/RemoveFromCartServlet.java,c/9/c96c18b70ba9f75aca5b92ceeb02af230f7cf944
 l
 <src/main/java/com/shoppingcart/servlets/CheckoutServlet.java,6/5/65304660b1167e7a7330243e8ec0454bcd72b086
+K
+src/main/webapp/receipt.jsp,0/4/04a1ff102ade154c16fcecc42b368a76d4ee22dc

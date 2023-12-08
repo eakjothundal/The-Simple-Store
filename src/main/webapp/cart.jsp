@@ -44,6 +44,22 @@
     }
 %>
 
+<p><strong>Total:</strong> $<%= String.format("%.2f", cart.entrySet().stream()
+        .mapToDouble(entry -> {
+            Product product = ProductDataStore.getProducts().stream()
+                    .filter(p -> p.getId().equals(entry.getKey()))
+                    .findFirst()
+                    .orElse(null);
+            return product != null ? product.getPrice() * entry.getValue() : 0;
+        })
+        .sum()) %></p>
+
+<form action="<%= request.getContextPath() %>/checkout" method="post">
+    <label for="promoCode">Promo Code:</label>
+    <input type="text" id="promoCode" name="promoCode" />
+    <input type="submit" value="Checkout">
+</form>
+
 <a href="index.jsp">Continue Shopping</a>
 
 </body>
