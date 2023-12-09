@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Receipt</title>
-  <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="styles/receipt.css">
 </head>
 <body>
