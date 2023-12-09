@@ -37,7 +37,6 @@
             <span>$<%= String.format("%.2f", product.getPrice()) %></span>
             <form action="<%= request.getContextPath() %>/add-to-cart" method="post">
                 <input type="hidden" name="productId" value="<%= product.getId() %>">
-                <input type="number" name="quantity" min="1" value="1" style="width: 40px;"> <!-- Input field added for quantity -->
                 <button type="submit">Add to Cart</button>
             </form>
         </li>
