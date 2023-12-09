@@ -1,12 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
+<%@ page import="com.shoppingcart.beans.CartBean" %>
 <%@ page import="com.shoppingcart.model.Product" %>
 <%@ page import="com.shoppingcart.data.ProductDataStore" %>
+<%@ page import="java.util.Map" %>
 <html>
 <head>
     <title>Your Shopping Cart</title>
-    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/cart.css">
 </head>
 <body>
@@ -15,33 +14,31 @@
 
 <div class="cart-container">
     <%
-        @SuppressWarnings("unchecked")
-        Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
+        CartBean cartBean = (CartBean) session.getAttribute("cartBean");
+        if (cartBean == null) {
+            cartBean = new CartBean();
+            session.setAttribute("cartBean", cartBean);
         }
-        boolean hasItems = !cart.isEmpty();
+        Map<String, Integer> cart = cartBean.getItems();
+        boolean hasItems = cart != null && !cart.isEmpty();
 
-        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
-            String productId = entry.getKey();
-            Integer quantity = entry.getValue();
-            Product product = ProductDataStore.getProducts().stream()
-                    .filter(p -> p.getId().equals(productId))
-                    .findFirst()
-                    .orElse(null);
-            if (product != null) {
+        if (hasItems) {
+            for (Map.Entry<String, Integer> entry : cart.entrySet()) {
+                String productId = entry.getKey();
+                Integer quantity = entry.getValue();
+                Product product = ProductDataStore.getProduct(productId);
+                if (product != null) {
     %>
     <div class="cart-item">
         <p class="cart-item-details">
             <strong><%= product.getName() %>:</strong> <%= quantity %> x $<%= String.format("%.2f", product.getPrice()) %>
         </p>
-        <form action="<%= request.getContextPath() %>/update-cart" method="post">
+        <form action="update-cart" method="post">
             <input type="hidden" name="productId" value="<%= productId %>" />
-            <label for="quantity_<%= productId %>">Quantity:</label>
-            <input type="number" id="quantity_<%= productId %>" class="quantity-selector" name="quantity" value="<%= quantity %>" min="1" />
+            <input type="number" name="quantity" value="<%= quantity %>" min="1" />
             <input type="submit" value="Update" />
         </form>
-        <form action="<%= request.getContextPath() %>/remove-from-cart" method="post" style="display:inline;">
+        <form action="remove-from-cart" method="post" style="display:inline;">
             <input type="hidden" name="productId" value="<%= productId %>" />
             <input type="submit" value="Remove" />
         </form>
@@ -49,27 +46,25 @@
     <%
             }
         }
-
-        if (hasItems) {
     %>
+    <!-- Display the cart summary -->
     <div class="cart-summary">
         <p class="total">
-            <strong>Total:</strong> $<%= String.format("%.2f", cart.entrySet().stream().mapToDouble(entry -> {
-            Product product = ProductDataStore.getProducts().stream()
-                    .filter(p -> p.getId().equals(entry.getKey()))
-                    .findFirst()
-                    .orElse(null);
-            return product != null ? product.getPrice() * entry.getValue() : 0;
-        }).sum()) %>
+            <strong>Total:</strong>
+            $<%= String.format("%.2f", cartBean.calculateSubtotal()) %>
         </p>
-        <form action="<%= request.getContextPath() %>/checkout" method="post" class="checkout-form">
-            <label for="promoCode">Promo Code:</label>
-            <input type="text" id="promoCode" name="promoCode" />
-            <input type="submit" value="Checkout">
+        <form action="checkout" method="post">
+            <input type="text" name="promoCode" placeholder="Promo Code" />
+            <input type="submit" value="Checkout" />
         </form>
     </div>
-    <% } %>
-
+    <%
+    } else {
+    %>
+    <p>Your cart is empty.</p>
+    <%
+        }
+    %>
     <a href="index.jsp" class="continue-shopping">Continue Shopping</a>
 </div>
 
