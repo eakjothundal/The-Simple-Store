@@ -15,12 +15,7 @@ public class CartBean implements Serializable {
     }
 
     public void addItem(String productId, int quantity) {
-        // If product already exists in cart, update the quantity
-        if (items.containsKey(productId)) {
-            items.put(productId, items.get(productId) + quantity);
-        } else {
-            items.put(productId, quantity);
-        }
+        items.put(productId, quantity);
     }
 
     public void removeItem(String productId) {
