@@ -1,34 +1,41 @@
 package com.shoppingcart.servlets;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import com.shoppingcart.beans.CartBean;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
-import java.util.Map;
 
 @WebServlet(name = "UpdateCartServlet", urlPatterns = { "/update-cart" })
 public class UpdateCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        CartBean cartBean = (CartBean) session.getAttribute("cartBean");
+        if (cartBean == null) {
+            cartBean = new CartBean();
+            session.setAttribute("cartBean", cartBean);
+        }
 
-        @SuppressWarnings("unchecked")
-        Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
         String productId = request.getParameter("productId");
         String quantityString = request.getParameter("quantity");
 
-        // Perform update only if the cart and product ID are valid
-        if (cart != null && productId != null && !productId.trim().isEmpty()) {
+        if (productId != null && !productId.trim().isEmpty()) {
             try {
                 int quantity = Integer.parseInt(quantityString);
                 if (quantity > 0) {
-                    cart.put(productId, quantity);
-                } else {
-                    cart.remove(productId);
+                    cartBean.addItem(productId, quantity);
+                    session.setAttribute("cartBean", cartBean);
+                } else if (quantity == 0) {
+                    cartBean.removeItem(productId);
+                    session.setAttribute("cartBean", cartBean);
                 }
-                session.setAttribute("cart", cart);
             } catch (NumberFormatException e) {
                 // Handle invalid quantity input
+                // If quantity is invalid, don't update the cart and possibly log the error
             }
         }
 
