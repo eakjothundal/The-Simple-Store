@@ -37,6 +37,6 @@ public class AddToCartServlet extends HttpServlet {
             session.setAttribute("cartBean", cartBean);
         }
 
-        response.sendRedirect("cart.jsp");
+        response.sendRedirect("index.jsp");
     }
 }

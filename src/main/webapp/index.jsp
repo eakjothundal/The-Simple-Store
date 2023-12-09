@@ -2,7 +2,7 @@
 <%@ page import="com.shoppingcart.model.Product" %>
 <%@ page import="com.shoppingcart.data.ProductDataStore" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
+<%@ page import="com.shoppingcart.beans.CartBean" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +18,8 @@
 <header>
     <h1>Welcome to The Simple Store</h1>
     <%
-        @SuppressWarnings("unchecked")
-        Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
-        if (cart != null && !cart.isEmpty()) { %>
+        CartBean cartBean = (CartBean) session.getAttribute("cartBean");
+        if (cartBean != null && !cartBean.getItems().isEmpty()) { %>
     <a href="cart.jsp" class="cart-button">View Cart</a>
     <% } else { %>
     <div></div>
@@ -31,13 +30,14 @@
     <ul id="product-list">
         <%
             List<Product> products = ProductDataStore.getProducts();
-            for(Product product : products) {
+            for (Product product : products) {
         %>
         <li>
             <strong><%= product.getName() %></strong>
             <span>$<%= String.format("%.2f", product.getPrice()) %></span>
-            <form action="${pageContext.request.contextPath}/add-to-cart" method="post">
+            <form action="<%= request.getContextPath() %>/add-to-cart" method="post">
                 <input type="hidden" name="productId" value="<%= product.getId() %>">
+                <input type="number" name="quantity" min="1" value="1" style="width: 40px;"> <!-- Input field added for quantity -->
                 <button type="submit">Add to Cart</button>
             </form>
         </li>
