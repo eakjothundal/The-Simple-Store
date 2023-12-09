@@ -1,33 +1,42 @@
 package com.shoppingcart.servlets;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import com.shoppingcart.beans.CartBean;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet(name = "AddToCartServlet", value = "/add-to-cart")
+@WebServlet(name = "AddToCartServlet", urlPatterns = { "/add-to-cart" })
 public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
+        CartBean cartBean = (CartBean) session.getAttribute("cartBean");
 
-        @SuppressWarnings("unchecked")
-        Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
+        if (cartBean == null) {
+            cartBean = new CartBean();
         }
 
-        // Retrieve the selected product ID from the form submission
         String productId = request.getParameter("productId");
-        if (productId != null && !productId.trim().isEmpty()) {
-            cart.put(productId, cart.getOrDefault(productId, 0) + 1); // Add or increment quantity
-            session.setAttribute("cart", cart); // Save the cart back to the session
-            System.out.println("Cart: " + cart);
+        String quantityString = request.getParameter("quantity");
+        int quantity = 1; // Assume adding one product if the quantity is not specified
+
+        if (quantityString != null && !quantityString.isEmpty()) {
+            try {
+                quantity = Integer.parseInt(quantityString);
+            } catch (NumberFormatException e) {
+                // Invalid quantity. Log this or handle this as per your application's requirements.
+            }
         }
 
-        // Redirect back to the product list (index.jsp) or to the cart page
-        response.sendRedirect("index.jsp");
+        if (productId != null && !productId.trim().isEmpty() && quantity > 0) {
+            cartBean.addItem(productId, quantity);
+            session.setAttribute("cartBean", cartBean);
+        }
+
+        response.sendRedirect("cart.jsp");
     }
 }

@@ -28,11 +28,10 @@ public class UpdateCartServlet extends HttpServlet {
                 int quantity = Integer.parseInt(quantityString);
                 if (quantity > 0) {
                     cartBean.addItem(productId, quantity);
-                    session.setAttribute("cartBean", cartBean);
-                } else if (quantity == 0) {
+                } else {
                     cartBean.removeItem(productId);
-                    session.setAttribute("cartBean", cartBean);
                 }
+                session.setAttribute("cartBean", cartBean);
             } catch (NumberFormatException e) {
                 // Handle invalid quantity input
                 // If quantity is invalid, don't update the cart and possibly log the error
